@@ -560,7 +560,7 @@ function sendMessage() {
 
     setTimeout(() => {
         if (foundName) {
-            appendMessage(`Meaning: ${names[foundName]} ✨🟦⚡`, "bot");
+            appendMessage(`🤖: ${names[foundName]} `, "bot");
         } else {
             // Fallback for names not found in the local database
             let r = randomMeanings[Math.floor(Math.random()*randomMeanings.length)];
@@ -589,5 +589,6 @@ window.onload = function() {
 
 </body>
 </html>
+
 
 
