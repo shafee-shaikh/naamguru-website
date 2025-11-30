@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NaamGuru 🤖</title>
+<title>NaamGuru V8.1 — Theme Fix</title>
 <style>
+    /* CSS is same as V8 */
     body {
         margin: 0;
         padding: 0;
@@ -119,7 +120,7 @@
 <body>
 
 <div class="app">
-    <h1>NaamGuru V8 ✨ Launch Edition</h1>
+    <h1>NaamGuru V8.1 ✨ Theme Fix</h1>
 
     <select id="themeSelect">
         <option>🌤️ Sky Blue</option>
@@ -152,7 +153,7 @@ const names = {
     "priya": "One who is deeply loved ❤️✨",
     "rahul": "Efficient and conqueror of miseries 💪🔥",
     "tanya": "Noble and graceful ✨🌺",
-
+    // **APNA POORA NAME DATABASE YAHAN COPY PASTE KAREIN**
     "shafee": "Owner of NaamGuru 👑",
 };
 
@@ -259,7 +260,7 @@ function sendMessage() {
 
     setTimeout(() => {
         if (foundName) {
-            appendMessage(`Meaning: ${names[foundName] `, "bot");
+            appendMessage(`Meaning: ${names[foundName]} ✨🟦⚡`, "bot");
         } else {
             // Fallback for names not found in the local database
             let r = randomMeanings[Math.floor(Math.random()*randomMeanings.length)];
@@ -279,16 +280,12 @@ function clearChat() {
 
 // Initialization: Apply default theme on load
 window.onload = function() {
-    // 1. Apply default theme (Sky Blue)
+    // FIX: Yeh line missing thi, jo default theme ko apply karta hai.
     const defaultTheme = document.getElementById("themeSelect").value;
     applyTheme(defaultTheme);
-
-    // 2. Rename file to index.html for hosting (only if needed by hoster)
-    // Note: Since you're using Vercel/GitHub, we just ensure the file is named index.html outside of this code.
 };
 
 </script>
 
 </body>
 </html>
-
