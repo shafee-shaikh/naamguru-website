@@ -2,26 +2,56 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NaamGuru 🤖</title>
 <style>
-    /* CSS is same as V8 */
     body {
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
         transition: background 0.6s ease, color 0.6s ease;
+        display: flex; /* For side-by-side layout */
+        justify-content: center; /* Center the whole content block */
+        min-height: 100vh;
+        align-items: center;
+    }
+
+    .main-container {
+        display: flex;
+        gap: 25px; /* Space between the app and the ad */
+        padding: 20px;
+        align-items: flex-start; /* Align items to the top */
     }
 
     .app {
         width: 100%;
         max-width: 450px;
-        margin: 40px auto;
         background: rgba(255,255,255,0.15);
         backdrop-filter: blur(12px);
         border-radius: 14px;
         padding: 18px 20px;
         box-shadow: 0 0 25px rgba(0,0,0,0.3);
         transition: 0.6s ease;
+        /* Fixed minimum height to balance with the ad slot */
+        min-height: 600px; 
+    }
+
+    .ad-sidebar {
+        width: 200px;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 14px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        /* Fixed height to match main app or be close to it */
+        height: 600px; 
+        display: none; /* Default: Hide sidebar on small screens */
+    }
+
+    /* Media Query: Show sidebar when screen is wide enough (e.g., desktops/laptops) */
+    @media (min-width: 800px) {
+        .ad-sidebar {
+            display: block;
+        }
     }
 
     h1 {
@@ -119,39 +149,50 @@
 </head>
 <body>
 
-<div class="app">
-    <h1>NaamGuru 🤖</h1>
+<div class="main-container">
 
-    <select id="themeSelect">
-        <option>🌤️ Sky Blue</option>
-        <option>⭐ Gold</option>
-        <option>🌈 Pink/Blue</option>
-        <option>🟣 Neon</option>
-        <option>🟩 Matrix</option>
-        <option>🔥 Cyber</option>
-    </select>
+    <div class="app">
+        <h1>NaamGuru 🤖</h1>
 
-    <div id="chat"></div>
+        <select id="themeSelect">
+            <option>🌤️ Sky Blue (Default)</option>
+            <option>⭐ Gold</option>
+            <option>🌈 Pink/Blue</option>
+            <option>🟣 Neon</option>
+            <option>🟩 Matrix</option>
+            <option>🔥 Cyber</option>
+            <option>🟠 Sunset Vibe</option>
+            <option>💎 Sapphire Blue</option>
+            <option>🌲 Forest Green</option>
+        </select>
 
-    <div class="inpBox">
-        <input id="input" placeholder="Enter a name...">
-        <button onclick="sendMessage()">Send</button>
+        <div id="chat"></div>
+
+        <div class="inpBox">
+            <input id="input" placeholder="Enter a name...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+        <button onclick="clearChat()" style="margin-top:10px;width:100%;">Clear Chat</button>
+
     </div>
-
-    <button onclick="clearChat()" style="margin-top:10px;width:100%;">Clear Chat</button>
-
-    <div id="ad-placement-bottom" style="margin-top: 15px; text-align: center;">
-        <p style="font-size: 12px; color: #888;">[THIS IS YOUR AD SLOT]</p>
+    
+    <div class="ad-sidebar">
+        <h3 style="text-align: center; color: var(--me-bubble);">AD SPACE</h3>
+        <div style="font-size: 12px; color: #888; height: 90%; border: 1px dashed #aaa; padding: 10px; display: flex; align-items: center; justify-content: center;">
+            <p style="text-align: center;">[ADVERTISEMENT CONTENT HERE]</p>
+        </div>
     </div>
     </div>
 
 <script>
 /* -------------------------------------
-   NAME DATABASE (APKA LOCAL DATA)
+   NAME DATABASE (SIRF AAPKA NAAM)
 --------------------------------------*/
 const names = {
+    // Sirf aapka naam rakha gaya hai, taaki aap manual entries daal sakein.
     "shafee": "Owner of NaamGuru 👑",
-    "rahul": "Efficient and conqueror of miseries 💪🔥",
+     "rahul": "Efficient and conqueror of miseries 💪🔥",
     "tanya": "Noble and graceful ✨🌺",
     "abhishek": "Ritual of purity and respect 🔱✨",
     "priyanka": "Beloved and beautiful soul ✨🌸",
@@ -279,7 +320,7 @@ const names = {
   "aaditya": "Bright, powerful and ambitious ☀️🔥",
   "pallav": "Fresh, positive and growth-minded 🌱💫",
   "yatharth": "Truthful, mature and balanced 🤍⚖️",
-  "ashaz": "Unique, curious and quick learner 🌟💡",
+  "ashaz": "female dog,duffer,class failure😛",
   "sonu": "Friendly, humble and lovable 😊🤍",
   "rivaan": "Full of joy, energy and brightness ☀️💛",
   "joel": "Calm, wise and thoughtful 🌿✨",
@@ -466,9 +507,9 @@ const randomMeanings = [
     "A charming and graceful presence ✨🌸"
 ];
 
-/* THEME ENGINE */
+/* THEME ENGINE (New Themes Added) */
 const themes = {
-    "🌤️ Sky Blue": {
+    "🌤️ Sky Blue (Default)": {
         bg: "#daf1ff",
         meBubble: "#007bff",
         botBubble: "#e8f7ff",
@@ -509,6 +550,28 @@ const themes = {
         botBubble: "#0038ff",
         meText: "#fff",
         botText: "#fff"
+    },
+    -
+    "🟠 Sunset Vibe": {
+        bg: "linear-gradient(135deg, #ff7e5f, #feb47b)", /* Orange/Peach gradient */
+        meBubble: "#d14000",
+        botBubble: "#ffe4c4",
+        meText: "#fff",
+        botText: "#333"
+    },
+    "💎 Sapphire Blue": {
+        bg: "#001a4e", /* Deep Dark Blue */
+        meBubble: "#0099ff", /* Bright Sapphire */
+        botBubble: "#1a3a6b",
+        meText: "#fff",
+        botText: "#e0f7fa"
+    },
+    "🌲 Forest Green": {
+        bg: "#f0fff0",
+        meBubble: "#006400", /* Dark Green */
+        botBubble: "#a2d4a2",
+        meText: "#fff",
+        botText: "#1e3d1e"
     }
 };
 
@@ -578,9 +641,8 @@ function clearChat() {
     document.getElementById("chat").innerHTML = "";
 }
 
-// Initialization: Apply default theme on load
+// Initialization: Apply default theme on load (THEME FIX)
 window.onload = function() {
-    // FIX: Yeh line missing thi, jo default theme ko apply karta hai.
     const defaultTheme = document.getElementById("themeSelect").value;
     applyTheme(defaultTheme);
 };
@@ -589,8 +651,3 @@ window.onload = function() {
 
 </body>
 </html>
-
-
-
-
-
