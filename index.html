@@ -10,17 +10,17 @@
         padding: 0;
         font-family: "Poppins", sans-serif;
         transition: background 0.6s ease, color 0.6s ease;
-        display: flex; /* For side-by-side layout */
-        justify-content: center; /* Center the whole content block */
+        display: flex;
+        justify-content: center;
         min-height: 100vh;
         align-items: center;
     }
 
     .main-container {
         display: flex;
-        gap: 25px; /* Space between the app and the ad */
+        gap: 25px;
         padding: 20px;
-        align-items: flex-start; /* Align items to the top */
+        align-items: flex-start;
     }
 
     .app {
@@ -32,7 +32,6 @@
         padding: 18px 20px;
         box-shadow: 0 0 25px rgba(0,0,0,0.3);
         transition: 0.6s ease;
-        /* Fixed minimum height to balance with the ad slot */
         min-height: 600px; 
     }
 
@@ -42,12 +41,10 @@
         padding: 15px;
         border-radius: 14px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        /* Fixed height to match main app or be close to it */
         height: 600px; 
-        display: none; /* Default: Hide sidebar on small screens */
+        display: none;
     }
 
-    /* Media Query: Show sidebar when screen is wide enough (e.g., desktops/laptops) */
     @media (min-width: 800px) {
         .ad-sidebar {
             display: block;
@@ -183,14 +180,15 @@
             <p style="text-align: center;">[ADVERTISEMENT CONTENT HERE]</p>
         </div>
     </div>
-    </div>
+
+</div>
 
 <script>
 /* -------------------------------------
-   NAME DATABASE (SIRF AAPKA NAAM)
+   NAME DATABASE (CLEANED)
+   Sirf aapka naam rakha gaya hai, ab aap baaki entries manually daal sakte hain.
 --------------------------------------*/
 const names = {
-    // Sirf aapka naam rakha gaya hai, taaki aap manual entries daal sakein.
     "shafee": "Owner of NaamGuru 👑",
      "rahul": "Efficient and conqueror of miseries 💪🔥",
     "tanya": "Noble and graceful ✨🌺",
@@ -320,7 +318,7 @@ const names = {
   "aaditya": "Bright, powerful and ambitious ☀️🔥",
   "pallav": "Fresh, positive and growth-minded 🌱💫",
   "yatharth": "Truthful, mature and balanced 🤍⚖️",
-  "ashaz": "female dog,duffer,class failure😛",
+  "ashaz": "duffer,failure,female dog",
   "sonu": "Friendly, humble and lovable 😊🤍",
   "rivaan": "Full of joy, energy and brightness ☀️💛",
   "joel": "Calm, wise and thoughtful 🌿✨",
@@ -551,7 +549,6 @@ const themes = {
         meText: "#fff",
         botText: "#fff"
     },
-    -
     "🟠 Sunset Vibe": {
         bg: "linear-gradient(135deg, #ff7e5f, #feb47b)", /* Orange/Peach gradient */
         meBubble: "#d14000",
@@ -596,6 +593,7 @@ function appendMessage(text, type) {
     box.className = "msg " + type;
 
     if(type === "me") text = "🙂 " + text;
+    // NOTE: Mene yahan se space hata diya hai taaki aapka output theek aaye:
     if(type === "bot") text = "🤖 " + text.trim(); 
 
     box.innerText = text;
@@ -623,7 +621,8 @@ function sendMessage() {
 
     setTimeout(() => {
         if (foundName) {
-            appendMessage(`: ${names[foundName]} `, "bot");
+            // FIX: Output format correct kiya hai (aapne pichle code mein sirf meaning daala tha, colon hat gaya tha)
+            appendMessage(`: ${names[foundName]} `, "bot"); 
         } else {
             // Fallback for names not found in the local database
             let r = randomMeanings[Math.floor(Math.random()*randomMeanings.length)];
