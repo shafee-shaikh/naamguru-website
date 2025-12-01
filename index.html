@@ -11,16 +11,19 @@
         font-family: "Poppins", sans-serif;
         transition: background 0.6s ease, color 0.6s ease;
         display: flex;
+        /* Aligned to stretch but centered for the main app */
         justify-content: center;
         min-height: 100vh;
         align-items: center;
+        position: relative; /* For absolute positioning of sidebars */
     }
 
+    /* New CSS for the Main App Container (Centered) */
     .main-container {
         display: flex;
-        gap: 25px;
         padding: 20px;
         align-items: flex-start;
+        z-index: 10; /* Ensures app is above ads on smaller screens */
     }
 
     .app {
@@ -35,17 +38,29 @@
         min-height: 600px; 
     }
 
+    /* New CSS for Fixed Side Ad Slots */
     .ad-sidebar {
-        width: 200px;
+        width: 180px; /* Slightly smaller for more content space */
         background: rgba(255,255,255,0.1);
         padding: 15px;
         border-radius: 14px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        height: 600px; 
-        display: none;
+        height: 80vh; /* Takes up most of the viewport height */
+        display: none; /* Hidden by default */
+        position: fixed; /* Fixed position on the screen */
+        top: 10vh; /* Positioned 10% from the top */
     }
 
-    @media (min-width: 800px) {
+    #ad-left {
+        left: 20px; /* Space from the left edge */
+    }
+
+    #ad-right {
+        right: 20px; /* Space from the right edge */
+    }
+
+    /* Media query to display sidebars on wider screens */
+    @media (min-width: 1200px) {
         .ad-sidebar {
             display: block;
         }
@@ -146,6 +161,13 @@
 </head>
 <body>
 
+<div class="ad-sidebar" id="ad-left">
+    <h3 style="text-align: center; color: var(--me-bubble); margin-top: 0;">AD 1</h3>
+    <div style="font-size: 12px; color: #888; height: 90%; border: 1px dashed #aaa; padding: 10px; display: flex; align-items: center; justify-content: center;">
+        <p style="text-align: center;">[ADVERTISEMENT CONTENT HERE - LEFT]</p>
+    </div>
+</div>
+
 <div class="main-container">
 
     <div class="app">
@@ -161,6 +183,9 @@
             <option>🟠 Sunset Vibe</option>
             <option>💎 Sapphire Blue</option>
             <option>🌲 Forest Green</option>
+            <option>🌊 Ocean Blue</option>
+            <option>⚪ Minimalist White</option>
+            <option>📜 Vintage Sepia</option>
         </select>
 
         <div id="chat"></div>
@@ -173,20 +198,21 @@
         <button onclick="clearChat()" style="margin-top:10px;width:100%;">Clear Chat</button>
 
     </div>
-    
-    <div class="ad-sidebar">
-        <h3 style="text-align: center; color: var(--me-bubble);">AD SPACE</h3>
-        <div style="font-size: 12px; color: #888; height: 90%; border: 1px dashed #aaa; padding: 10px; display: flex; align-items: center; justify-content: center;">
-            <p style="text-align: center;">[ADVERTISEMENT CONTENT HERE]</p>
-        </div>
-    </div>
 
 </div>
 
+<div class="ad-sidebar" id="ad-right">
+    <h3 style="text-align: center; color: var(--me-bubble); margin-top: 0;">AD 2</h3>
+    <div style="font-size: 12px; color: #888; height: 90%; border: 1px dashed #aaa; padding: 10px; display: flex; align-items: center; justify-content: center;">
+        <p style="text-align: center;">[ADVERTISEMENT CONTENT HERE - RIGHT]</p>
+    </div>
+</div>
+
+
 <script>
 /* -------------------------------------
-   NAME DATABASE (CLEANED)
-   Sirf aapka naam rakha gaya hai, ab aap baaki entries manually daal sakte hain.
+    NAME DATABASE (CLEANED)
+    Sirf aapka naam rakha gaya hai, ab aap baaki entries manually daal sakte hain.
 --------------------------------------*/
 const names = {
     "shafee": "Owner of NaamGuru 👑",
@@ -496,13 +522,18 @@ const names = {
     
 };
 
-/* Fallback lines (Jab naam na mile) */
+/* Fallback lines (Jab naam na mile) - UPDATED with more meanings */
 const randomMeanings = [
     "This name reflects positivity ✨🙂",
     "A unique personality with bright energy 💫⚡",
     "Strong vibes and confident nature 💪🔥",
     "Creative and calm aura 🌿🤍",
-    "A charming and graceful presence ✨🌸"
+    "A charming and graceful presence ✨🌸",
+    "Potential for greatness and a sharp mind 🧠🎯",
+    "Deeply thoughtful and a seeker of truth 📖💡",
+    "Inner strength and a gentle heart ❤️🛡️",
+    "A spirit as free as the wind 🌬️🌟",
+    "Destined for success and joy 🍀😊"
 ];
 
 /* THEME ENGINE (New Themes Added) */
@@ -569,12 +600,42 @@ const themes = {
         botBubble: "#a2d4a2",
         meText: "#fff",
         botText: "#1e3d1e"
+    },
+    /* NEW THEMES START HERE */
+    "🌊 Ocean Blue": {
+        bg: "linear-gradient(135deg, #2a86ff, #00d4ff)", /* Deep to Light Blue */
+        meBubble: "#005a9d",
+        botBubble: "#cce6ff",
+        meText: "#fff",
+        botText: "#001a33"
+    },
+    "⚪ Minimalist White": {
+        bg: "#f8f8f8",
+        meBubble: "#e0e0e0",
+        botBubble: "#ffffff",
+        meText: "#333",
+        botText: "#555"
+    },
+    "📜 Vintage Sepia": {
+        bg: "#f3e5c9", /* Sepia Background */
+        meBubble: "#7d5d2c", /* Darker Brown */
+        botBubble: "#fcf6e7", /* Off-White Paper */
+        meText: "#fff",
+        botText: "#5d4037" /* Brown Text */
     }
+    /* NEW THEMES END HERE */
 };
 
 function applyTheme(themeName) {
     let t = themes[themeName];
-    document.body.style.background = t.bg;
+    // Check if background is a gradient or a solid color
+    if (t.bg.startsWith("linear-gradient")) {
+        document.body.style.backgroundImage = t.bg;
+        document.body.style.backgroundColor = 'transparent'; // Important for gradient visibility
+    } else {
+        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundColor = t.bg;
+    }
     document.documentElement.style.setProperty("--me-bubble", t.meBubble);
     document.documentElement.style.setProperty("--bot-bubble", t.botBubble);
     document.documentElement.style.setProperty("--me-text", t.meText);
@@ -586,7 +647,8 @@ document.getElementById("themeSelect").addEventListener("change", function () {
 });
 
 /* -------------------------------------
-   CHAT FUNCTIONS (LOCAL SEARCH ONLY)
+    CHAT FUNCTIONS (LOCAL SEARCH ONLY)
+    (UNCHANGED AS REQUESTED)
 --------------------------------------*/
 function appendMessage(text, type) {
     let box = document.createElement("div");
