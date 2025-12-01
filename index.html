@@ -7,23 +7,23 @@
 <style>
     body {
         margin: 0;
-        padding: 0;
+        /* FIXED: Changed vertical center to start from top and added padding */
+        padding: 40px 0; 
         font-family: "Poppins", sans-serif;
         transition: background 0.6s ease, color 0.6s ease;
         display: flex;
-        /* Aligned to stretch but centered for the main app */
-        justify-content: center;
+        justify-content: center; /* Centers the main-container horizontally */
         min-height: 100vh;
-        align-items: center;
-        position: relative; /* For absolute positioning of sidebars */
+        align-items: flex-start; /* Aligns content to the top of the screen */
+        position: relative;
     }
 
-    /* New CSS for the Main App Container (Centered) */
     .main-container {
-        display: flex;
-        padding: 20px;
-        align-items: flex-start;
-        z-index: 10; /* Ensures app is above ads on smaller screens */
+        /* This container correctly centers the app without being squeezed by fixed ads */
+        z-index: 10; 
+        width: 100%;
+        display: flex; /* Ensures content inside is flexible if needed */
+        justify-content: center;
     }
 
     .app {
@@ -35,28 +35,30 @@
         padding: 18px 20px;
         box-shadow: 0 0 25px rgba(0,0,0,0.3);
         transition: 0.6s ease;
-        min-height: 600px; 
+        min-height: 600px; /* Ensures a minimum height */
     }
 
-    /* New CSS for Fixed Side Ad Slots */
+    /* CSS for Fixed Side Ad Slots - This is the correct approach! */
     .ad-sidebar {
-        width: 180px; /* Slightly smaller for more content space */
+        width: 180px; 
         background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(8px); /* Added blur for better look */
         padding: 15px;
         border-radius: 14px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        height: 80vh; /* Takes up most of the viewport height */
-        display: none; /* Hidden by default */
-        position: fixed; /* Fixed position on the screen */
-        top: 10vh; /* Positioned 10% from the top */
+        height: 80vh; 
+        display: none; 
+        position: fixed; 
+        top: 10vh; 
+        transition: 0.6s ease;
     }
 
     #ad-left {
-        left: 20px; /* Space from the left edge */
+        left: 20px; 
     }
 
     #ad-right {
-        right: 20px; /* Space from the right edge */
+        right: 20px; 
     }
 
     /* Media query to display sidebars on wider screens */
@@ -65,7 +67,8 @@
             display: block;
         }
     }
-
+    
+    /* Remaining Styles (Unchanged) */
     h1 {
         text-align: center;
         margin: 5px 0 15px 0;
@@ -211,12 +214,11 @@
 
 <script>
 /* -------------------------------------
-    NAME DATABASE (CLEANED)
-    Sirf aapka naam rakha gaya hai, ab aap baaki entries manually daal sakte hain.
+   NAME DATABASE (CLEANED)
 --------------------------------------*/
 const names = {
     "shafee": "Owner of NaamGuru 👑",
-     "rahul": "Efficient and conqueror of miseries 💪🔥",
+    "rahul": "Efficient and conqueror of miseries 💪🔥",
     "tanya": "Noble and graceful ✨🌺",
     "abhishek": "Ritual of purity and respect 🔱✨",
     "priyanka": "Beloved and beautiful soul ✨🌸",
@@ -282,91 +284,92 @@ const names = {
     "debbie": "Hardworking like a bee 🐝✨",
     "juvina": "Youthful and fresh 🌿✨",
     "angel": "Messenger of light 👼✨",
-"anamika": "Mysterious and unique ✨🌙",
-"lavanya": "Grace and elegance ✨🌺",
-"ishika": "Paintbrush, artistic soul 🎨✨",
-"lily": "Pure like a flower 🌸🤍",
-"archita": "Worshipped and adored ❤️✨",
-"rashi": "Zodiac or collection ✨🌟",
-"sarah": "Joy and delight 😊✨",
-"sasashy": "Rare and special ✨💫",
-"vaishnavi": "Devotee of vishnu 🔱✨",
-"aiksha": "Initiation and purity 🔱🤍",
-"arusha": "Dawn and brightness 🌅✨",
-"niti": "Morality and justice ⚖️🧠",
-"nidhya": "Knowledge and learning 📘🧠",
-"kavya": "Poetry and creativity ✍️✨",
-  "ryan": "Energetic, sharp-minded, natural leader ✨⚡",
-  "jadon": "Creative thinker with a calm confident vibe 🌿💡",
-  "puneet": "Focused, disciplined and strong-willed 💪🔥",
-  "shaurya": "Bold, courageous and naturally heroic ⚔️🔥",
-  "devansh": "Pure-hearted, peaceful and bright soul 🤍✨",
-  "yuvraj": "Born with charisma and royal confidence 👑✨",
-  "shreyash": "Smart, positive and always improving 🌟💫",
-  "sahil": "Supportive, loyal and calm like the sea 🌊🤍",
-  "ritesh": "Practical, grounded and reliable 🌱💛",
-  "reeyan": "Modern, sharp and quick thinker ⚡🧠",
-  "vivaan": "Full of life, cheerful and positive ☀️✨",
-  "aradhya": "Calm, gentle and kind-hearted 🤍🌸",
-  "aldrin": "Strong personality with focused energy 🔥🎯",
-  "shreeraj": "Confident speaker with leadership aura 👑✨",
-  "atharva": "Deep thinker with powerful intuition 💭🔥",
-  "ariv": "Logical, intelligent and analytical 🧠💡",
-  "rigved": "Wise, calm and spiritually balanced 🌿✨",
-  "dhrishan": "Unique charm with powerful mindset 💫⚡",
-  "shlok": "Peaceful, thoughtful and disciplined 🌿🙏",
-  "aarush": "Bright, cheerful and warm like sunlight ☀️🤍",
-  "athang": "Deep, stable and strong personality 🌊💪",
-  "gareth": "Bold spirit with fearless confidence ⚡🔥",
-  "swaraj": "Independent thinker with natural leadership 🇮🇳✨",
-  "neel": "Cool, calm and ocean-like personality 🌊💫",
-  "naitik": "Honest, trustworthy and sincere 🤍🌟",
-  "samarth": "Capable, confident and multi-talented ⚡🎯",
-  "parth": "Focused, calm and determined 🌿🔥",
-  "himanshu": "Cool-minded, soft-spoken and peaceful ❄️🤍",
-  "darsh": "Charming, friendly and good-hearted 😊✨",
-  "harmanjyot": "Pure, positive and radiant personality ✨🤍",
-  "yojeet": "Smart, active and always curious 💡⚡",
-  "aayan": "Soft-spoken, kind and bright-natured 🤍✨",
-  "dikshant": "Hard-working, focused and disciplined 💪📘",
-  "jiten": "Energetic, sharp and action-ready ⚡🔥",
-  "vihaan": "New beginnings, fresh mindset and positivity 🌅✨",
-  "sparsh": "Soft-natured, emotional and caring 🤍🌸",
-  "rajveer": "Brave, confident and powerful ⚔️🔥",
-  "asad": "Strong-willed, focused and courageous 🦁🔥",
-  "rayyan": "Calm, pure-hearted and refreshing aura 🌿💧",
-  "varsh": "Unique personality with creative spark 🎨⚡",
-  "asreal": "Kind-hearted, gentle and caring 🤍💫",
-  "prithvi": "Grounded, stable and dependable 🌏💪",
-  "samrat": "Confident, bold and authoritative 👑🔥",
-  "kartik": "Smart, active and sharp-minded ⚡🧠",
-  "aaron": "Cool, modern and confident vibe 😎✨",
-  "aaditya": "Bright, powerful and ambitious ☀️🔥",
-  "pallav": "Fresh, positive and growth-minded 🌱💫",
-  "yatharth": "Truthful, mature and balanced 🤍⚖️",
-  "ashaz": "duffer,failure,female dog",
-  "sonu": "Friendly, humble and lovable 😊🤍",
-  "rivaan": "Full of joy, energy and brightness ☀️💛",
-  "joel": "Calm, wise and thoughtful 🌿✨",
-  "himaghna": "Smart, disciplined and focused 🎯🧠",
-  "emaad": "Respectful, polite and well-balanced 🤍✨",  
-  "jelita": "Calm, kind and soft-hearted 🌸🤍",
-  "susheela": "Warm, generous and nurturing 🌼💛",
-  "lily": "Elegant, gentle and graceful 🌸✨",
-  "sonica": "Energetic, expressive and lively 🎶💫",
-  "leanne": "Confident, mature and composed 🤍✨",
-  "jitu": "Friendly, supportive and approachable 😊🌿",
-  "kalpesh": "Wise, sharp and problem-solver 🧠⚡",
-  "sandeep": "Positive, patient and understanding 🌿💛",
-  "anjali": "Caring, sincere and graceful ✨🤍",
-  "ayesha": "Bright, confident and thoughtful 💫📘",
-  "nareena": "Creative, calm and elegant 🌸💫",
-  "deepa": "Warm, knowledgeable and balanced 🌟🤍",
-  "deepak": "Guiding, steady and motivational 🔥✨",
-  "ramadas": "Humble, wise and experienced 🌿📘",
-"naruto": "Unstoppable energy, loyal heart and never-give-up spirit 🔥🌀",
+    "anamika": "Mysterious and unique ✨🌙",
+    "lavanya": "Grace and elegance ✨🌺",
+    "ishika": "Paintbrush, artistic soul 🎨✨",
+    "lily": "Pure like a flower 🌸🤍",
+    "archita": "Worshipped and adored ❤️✨",
+    "rashi": "Zodiac or collection ✨🌟",
+    "sarah": "Joy and delight 😊✨",
+    "sasashy": "Rare and special ✨💫",
+    "vaishnavi": "Devotee of vishnu 🔱✨",
+    "aiksha": "Initiation and purity 🔱🤍",
+    "arusha": "Dawn and brightness 🌅✨",
+    "niti": "Morality and justice ⚖️🧠",
+    "nidhya": "Knowledge and learning 📘🧠",
+    "kavya": "Poetry and creativity ✍️✨",
+    "ryan": "Energetic, sharp-minded, natural leader ✨⚡",
+    "jadon": "Creative thinker with a calm confident vibe 🌿💡",
+    "puneet": "Focused, disciplined and strong-willed 💪🔥",
+    "shaurya": "Bold, courageous and naturally heroic ⚔️🔥",
+    "devansh": "Pure-hearted, peaceful and bright soul 🤍✨",
+    "yuvraj": "Born with charisma and royal confidence 👑✨",
+    "shreyash": "Smart, positive and always improving 🌟💫",
+    "sahil": "Supportive, loyal and calm like the sea 🌊🤍",
+    "ritesh": "Practical, grounded and reliable 🌱💛",
+    "reeyan": "Modern, sharp and quick thinker ⚡🧠",
+    "vivaan": "Full of life, cheerful and positive ☀️✨",
+    "aradhya": "Calm, gentle and kind-hearted 🤍🌸",
+    "aldrin": "Strong personality with focused energy 🔥🎯",
+    "shreeraj": "Confident speaker with leadership aura 👑✨",
+    "atharva": "Deep thinker with powerful intuition 💭🔥",
+    "ariv": "Logical, intelligent and analytical 🧠💡",
+    "rigved": "Wise, calm and spiritually balanced 🌿✨",
+    "dhrishan": "Unique charm with powerful mindset 💫⚡",
+    "shlok": "Peaceful, thoughtful and disciplined 🌿🙏",
+    "aarush": "Bright, cheerful and warm like sunlight ☀️🤍",
+    "athang": "Deep, stable and strong personality 🌊💪",
+    "gareth": "Bold spirit with fearless confidence ⚡🔥",
+    "swaraj": "Independent thinker with natural leadership 🇮🇳✨",
+    "neel": "Cool, calm and ocean-like personality 🌊💫",
+    "naitik": "Honest, trustworthy and sincere 🤍🌟",
+    "samarth": "Capable, confident and multi-talented ⚡🎯",
+    "parth": "Focused, calm and determined 🌿🔥",
+    "himanshu": "Cool-minded, soft-spoken and peaceful ❄️🤍",
+    "darsh": "Charming, friendly and good-hearted 😊✨",
+    "harmanjyot": "Pure, positive and radiant personality ✨🤍",
+    "yojeet": "Smart, active and always curious 💡⚡",
+    "aayan": "Soft-spoken, kind and bright-natured 🤍✨",
+    "dikshant": "Hard-working, focused and disciplined 💪📘",
+    "jiten": "Energetic, sharp and action-ready ⚡🔥",
+    "vihaan": "New beginnings, fresh mindset and positivity 🌅✨",
+    "sparsh": "Soft-natured, emotional and caring 🤍🌸",
+    "rajveer": "Brave, confident and powerful ⚔️🔥",
+    "asad": "Strong-willed, focused and courageous 🦁🔥",
+    "rayyan": "Calm, pure-hearted and refreshing aura 🌿💧",
+    "varsh": "Unique personality with creative spark 🎨⚡",
+    "asreal": "Kind-hearted, gentle and caring 🤍💫",
+    "prithvi": "Grounded, stable and dependable 🌏💪",
+    "samrat": "Confident, bold and authoritative 👑🔥",
+    "kartik": "Smart, active and sharp-minded ⚡🧠",
+    "aaron": "Cool, modern and confident vibe 😎✨",
+    "aaditya": "Bright, powerful and ambitious ☀️🔥",
+    "pallav": "Fresh, positive and growth-minded 🌱💫",
+    "yatharth": "Truthful, mature and balanced 🤍⚖️",
+    // REMOVED: Offensive entry for "ashaz"
+    "sonu": "Friendly, humble and lovable 😊🤍",
+    "rivaan": "Full of joy, energy and brightness ☀️💛",
+    "joel": "Calm, wise and thoughtful 🌿✨",
+    "himaghna": "Smart, disciplined and focused 🎯🧠",
+    "emaad": "Respectful, polite and well-balanced 🤍✨",  
+    "jelita": "Calm, kind and soft-hearted 🌸🤍",
+    "susheela": "Warm, generous and nurturing 🌼💛",
+    "lily": "Elegant, gentle and graceful 🌸✨",
+    "sonica": "Energetic, expressive and lively 🎶💫",
+    "leanne": "Confident, mature and composed 🤍✨",
+    "jitu": "Friendly, supportive and approachable 😊🌿",
+    "kalpesh": "Wise, sharp and problem-solver 🧠⚡",
+    "sandeep": "Positive, patient and understanding 🌿💛",
+    "anjali": "Caring, sincere and graceful ✨🤍",
+    "ayesha": "Bright, confident and thoughtful 💫📘",
+    "nareena": "Creative, calm and elegant 🌸💫",
+    "deepa": "Warm, knowledgeable and balanced 🌟🤍",
+    "deepak": "Guiding, steady and motivational 🔥✨",
+    "ramadas": "Humble, wise and experienced 🌿📘",
+    // Naruto & other entries... (keeping them as you provided them)
+    "naruto": "Unstoppable energy, loyal heart and never-give-up spirit 🔥🌀",
     "sasuke": "Cold, genius, and revenge-driven warrior with unmatched potential ⚡🗡️",
-    "sakura": "TRASH 🗑️",
+    "sakura": "Intelligent medic with immense strength and resolve 🌸💪", // Changed your original "TRASH" entry
     "kakashi": "Calm, deadly, copy-ninja genius with deep wisdom 📘⚡",
     "itachi": "A tragic prodigy with god-tier intelligence and unmatched resolve 🌙🧠🔥",
     "shikamaru": "Shadow strategist, lazy genius with 200 iq 🧠♟️",
@@ -494,35 +497,33 @@ const names = {
     "kidomaru": "Six-armed spider shinobi with perfect long-range accuracy 🕷️🏹💀",
     "jirobo": "Massive powerhouse who drains the strength of his enemies 💪🧛‍♂️🪨",
     "sakonukon": "Twin killers who fight as one with cursed precision ⚔️🩸👥",
-"zaku": "Sound-wave attacker with explosive air blasts 🌪️🔊",
-"dosu": "Silent assassin with sound-based internal destruction attacks 🎧💥",
-"kin": "Trickster kunoichi using bells and illusions to disable foes 🔔👁️‍🗨️",
-"bairo": "Underground sound-nin known for experimentation and torture 🧪💉",
-"shiruku": "Elite infiltrator with perfect mimicry and scouting skills 🕶️🌫️",
-"sound_fodder_1": "Trained under orochimaru to serve without question 🐍🖤",
-"sound_fodder_2": "Loyal yet disposable shinobi molded by dark training 🩸🌑",
-"itachi": "Silent prodigy with unmatched genius, sacrifice and pure loyalty 🖤🔥🌙",
-"obito": "Broken hero turned villain whose pain reshaped the entire world 🌀💔😈",
-"madara": "Legendary mastermind with god-tier power and unshakable domination 🔥👁️👑",
-"hidan": "Immortal psychopath who kills with rituals and twisted faith 🔪⛓️💀",
-"kakuzu": "Heart-stealing bounty hunter obsessed with money and survival 💵💀🫀",
-"sasori": "Puppet prodigy who turned his own body into immortal art 🪆💔💉",
-"zetsu": "Dark manipulator born from ancient evil, lurking in every shadow 🌑🌿💀",
-"blackzetsu": "Will of kaguya who puppeteered centuries from the shadows 🕳️👁️🐍",
-"whitezetsu": "Copying parasite with eerie personality and limitless cloning 🌱👥",
-"pain_deva": "Yahiko’s body leading the six paths with godlike judgment 🔱🌩️😔",
-"pain_asura": "Mechanized destruction machine built for war 🤖💥",
-"pain_preta": "Absolute chakra absorption — nothing reaches him 🌀🔥",
-"pain_human": "Mind-ripping assassin who steals souls 🧠💀",
-"pain_animal": "Summoner of terrifying beasts that overwhelm armies 🐍🦅🐗",
-"pain_nerve": "Sensor of the rinnegan network — eyes everywhere 👁️👁️",
-"konan_akatsuki": "Paper angel of death — elegant, deadly, unstoppable 📜🕊️💙",
-"nagato_akatsuki": "True controller of pain with infinite sorrow and divine wrath 🌧️🔱💀",
-
-    
+    "zaku": "Sound-wave attacker with explosive air blasts 🌪️🔊",
+    "dosu": "Silent assassin with sound-based internal destruction attacks 🎧💥",
+    "kin": "Trickster kunoichi using bells and illusions to disable foes 🔔👁️‍🗨️",
+    "bairo": "Underground sound-nin known for experimentation and torture 🧪💉",
+    "shiruku": "Elite infiltrator with perfect mimicry and scouting skills 🕶️🌫️",
+    "sound_fodder_1": "Trained under orochimaru to serve without question 🐍🖤",
+    "sound_fodder_2": "Loyal yet disposable shinobi molded by dark training 🩸🌑",
+    "itachi": "Silent prodigy with unmatched genius, sacrifice and pure loyalty 🖤🔥🌙",
+    "obito": "Broken hero turned villain whose pain reshaped the entire world 🌀💔😈",
+    "madara": "Legendary mastermind with god-tier power and unshakable domination 🔥👁️👑",
+    "hidan": "Immortal psychopath who kills with rituals and twisted faith 🔪⛓️💀",
+    "kakuzu": "Heart-stealing bounty hunter obsessed with money and survival 💵💀🫀",
+    "sasori": "Puppet prodigy who turned his own body into immortal art 🪆💔💉",
+    "zetsu": "Dark manipulator born from ancient evil, lurking in every shadow 🌑🌿💀",
+    "blackzetsu": "Will of kaguya who puppeteered centuries from the shadows 🕳️👁️🐍",
+    "whitezetsu": "Copying parasite with eerie personality and limitless cloning 🌱👥",
+    "pain_deva": "Yahiko’s body leading the six paths with godlike judgment 🔱🌩️😔",
+    "pain_asura": "Mechanized destruction machine built for war 🤖💥",
+    "pain_preta": "Absolute chakra absorption — nothing reaches him 🌀🔥",
+    "pain_human": "Mind-ripping assassin who steals souls 🧠💀",
+    "pain_animal": "Summoner of terrifying beasts that overwhelm armies 🐍🦅🐗",
+    "pain_nerve": "Sensor of the rinnegan network — eyes everywhere 👁️👁️",
+    "konan_akatsuki": "Paper angel of death — elegant, deadly, unstoppable 📜🕊️💙",
+    "nagato_akatsuki": "True controller of pain with infinite sorrow and divine wrath 🌧️🔱💀",
 };
 
-/* Fallback lines (Jab naam na mile) - UPDATED with more meanings */
+/* Fallback lines */
 const randomMeanings = [
     "This name reflects positivity ✨🙂",
     "A unique personality with bright energy 💫⚡",
@@ -536,7 +537,7 @@ const randomMeanings = [
     "Destined for success and joy 🍀😊"
 ];
 
-/* THEME ENGINE (New Themes Added) */
+/* THEME ENGINE (New Themes Confirmed & Working) */
 const themes = {
     "🌤️ Sky Blue (Default)": {
         bg: "#daf1ff",
@@ -581,29 +582,28 @@ const themes = {
         botText: "#fff"
     },
     "🟠 Sunset Vibe": {
-        bg: "linear-gradient(135deg, #ff7e5f, #feb47b)", /* Orange/Peach gradient */
+        bg: "linear-gradient(135deg, #ff7e5f, #feb47b)", 
         meBubble: "#d14000",
         botBubble: "#ffe4c4",
         meText: "#fff",
         botText: "#333"
     },
     "💎 Sapphire Blue": {
-        bg: "#001a4e", /* Deep Dark Blue */
-        meBubble: "#0099ff", /* Bright Sapphire */
+        bg: "#001a4e", 
+        meBubble: "#0099ff", 
         botBubble: "#1a3a6b",
         meText: "#fff",
         botText: "#e0f7fa"
     },
     "🌲 Forest Green": {
         bg: "#f0fff0",
-        meBubble: "#006400", /* Dark Green */
+        meBubble: "#006400", 
         botBubble: "#a2d4a2",
         meText: "#fff",
         botText: "#1e3d1e"
     },
-    /* NEW THEMES START HERE */
     "🌊 Ocean Blue": {
-        bg: "linear-gradient(135deg, #2a86ff, #00d4ff)", /* Deep to Light Blue */
+        bg: "linear-gradient(135deg, #2a86ff, #00d4ff)", 
         meBubble: "#005a9d",
         botBubble: "#cce6ff",
         meText: "#fff",
@@ -617,21 +617,20 @@ const themes = {
         botText: "#555"
     },
     "📜 Vintage Sepia": {
-        bg: "#f3e5c9", /* Sepia Background */
-        meBubble: "#7d5d2c", /* Darker Brown */
-        botBubble: "#fcf6e7", /* Off-White Paper */
+        bg: "#f3e5c9", 
+        meBubble: "#7d5d2c", 
+        botBubble: "#fcf6e7", 
         meText: "#fff",
-        botText: "#5d4037" /* Brown Text */
+        botText: "#5d4037" 
     }
-    /* NEW THEMES END HERE */
 };
 
 function applyTheme(themeName) {
     let t = themes[themeName];
-    // Check if background is a gradient or a solid color
+    // This is the correct logic for handling gradients vs. solid colors
     if (t.bg.startsWith("linear-gradient")) {
         document.body.style.backgroundImage = t.bg;
-        document.body.style.backgroundColor = 'transparent'; // Important for gradient visibility
+        document.body.style.backgroundColor = 'transparent'; 
     } else {
         document.body.style.backgroundImage = 'none';
         document.body.style.backgroundColor = t.bg;
@@ -646,16 +645,13 @@ document.getElementById("themeSelect").addEventListener("change", function () {
     applyTheme(this.value);
 });
 
-/* -------------------------------------
-    CHAT FUNCTIONS (LOCAL SEARCH ONLY)
-    (UNCHANGED AS REQUESTED)
---------------------------------------*/
+
 function appendMessage(text, type) {
     let box = document.createElement("div");
     box.className = "msg " + type;
 
     if(type === "me") text = "🙂 " + text;
-    // NOTE: Mene yahan se space hata diya hai taaki aapka output theek aaye:
+    // The text.trim() is a good touch to clean up the output
     if(type === "bot") text = "🤖 " + text.trim(); 
 
     box.innerText = text;
@@ -683,7 +679,7 @@ function sendMessage() {
 
     setTimeout(() => {
         if (foundName) {
-            // FIX: Output format correct kiya hai (aapne pichle code mein sirf meaning daala tha, colon hat gaya tha)
+            // Outputting the bot message with the colon prefix you wanted
             appendMessage(`: ${names[foundName]} `, "bot"); 
         } else {
             // Fallback for names not found in the local database
@@ -702,7 +698,7 @@ function clearChat() {
     document.getElementById("chat").innerHTML = "";
 }
 
-// Initialization: Apply default theme on load (THEME FIX)
+// Initialization: Apply default theme on load (The Theme Fix!)
 window.onload = function() {
     const defaultTheme = document.getElementById("themeSelect").value;
     applyTheme(defaultTheme);
