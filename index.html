@@ -11,25 +11,29 @@
 <style>
     body {
         margin: 0;
-        /* RESTORED: Centering the content vertically and horizontally */
+        /* FIX 1: RESTORING THE CENTERING */
         display: flex;
         justify-content: center;
-        align-items: center;
-        min-height: 100vh; /* Ensures it takes full viewport height */
+        align-items: center; 
+        min-height: 100vh; /* Ensures vertical centering on all screens */
         font-family: "Poppins", sans-serif;
         transition: background 0.6s ease, color 0.6s ease;
         position: relative;
     }
 
     .main-container {
-        /* Restored max-width for compact look */
+        /* FIX 2: RESTORING COMPACT WIDTH */
         z-index: 10; 
         width: 100%;
-        max-width: 450px; 
+        max-width: 450px; /* Limits the chat box width */
         display: flex;
         justify-content: center;
-        align-items: center; /* Ensures the app div is centered */
+        align-items: center; 
+        padding-top: 20px; /* Small padding top/bottom */
+        padding-bottom: 20px;
     }
+    
+    /* The rest of the CSS is the original, beautiful code */
 
     .app {
         width: 100%;
@@ -42,7 +46,7 @@
         min-height: 600px;
     }
 
-    /* CSS for Fixed Side Ad Slots (Kept the original, correct way) */
+    /* CSS for Fixed Side Ad Slots (Restored to original design) */
     .ad-sidebar {
         width: 180px; 
         background: rgba(255,255,255,0.1);
@@ -75,16 +79,16 @@
     /* New Style for Disclaimer (to place it outside the main centered area) */
     .footer-disclaimer {
         position: absolute;
-        bottom: 10px; /* Positions it near the bottom */
+        bottom: 10px; 
         width: 100%;
+        max-width: 450px; /* Centered with the app, if possible */
         text-align: center;
         font-size: 11px;
         color: #555;
-        padding: 0 20px; /* Ensures padding on sides */
+        padding: 0 20px; 
         box-sizing: border-box;
     }
 
-    /* Remaining Styles (Unchanged) */
     h1 {
         text-align: center;
         margin: 5px 0 15px 0;
@@ -233,9 +237,11 @@
       </div>
 </div>
 
-<p class="footer-disclaimer">
-    Disclaimer: NaamGuru is a fun chatbot tool that analyzes name meanings and personality traits. This site is for entertainment purposes only. Created by Shafee.
-</p>
+<div style="position: absolute; bottom: 0; width: 100%; display: flex; justify-content: center;">
+    <p class="footer-disclaimer" style="position: static; margin-top: 0;">
+        Disclaimer: NaamGuru is a fun chatbot tool that analyzes name meanings and personality traits. This site is for entertainment purposes only. Created by Shafee.
+    </p>
+</div>
 
 <script>
 /* -------------------------------------
@@ -560,7 +566,7 @@ const randomMeanings = [
     "Destined for success and joy 🍀😊"
 ];
 
-/* THEME ENGINE (New Themes Confirmed & Working) */
+/* THEME ENGINE */
 const themes = {
     "🌤️ Sky Blue (Default)": {
         bg: "#daf1ff",
@@ -721,7 +727,7 @@ function clearChat() {
     document.getElementById("chat").innerHTML = "";
 }
 
-// Initialization: Apply default theme on load (The Theme Fix!)
+// Initialization: Apply default theme on load
 window.onload = function() {
     const defaultTheme = document.getElementById("themeSelect").value;
     applyTheme(defaultTheme);
