@@ -195,8 +195,12 @@
             <option>📜 Vintage Sepia</option>
         </select>
 
-        <div id="chat"></div>
-
+       <div id="chat">
+            <div class="msg bot" style="margin-right: auto; font-size: 15px;">
+                🤖 **Welcome to NaamGuru!** Type any name (like 'Naruto', 'Rahul', 'Isha') to find its unique meaning, personality traits, and aura. Have fun exploring!
+            </div>
+            </div>
+         
         <div class="inpBox">
             <input id="input" placeholder="Enter a name...">
             <button onclick="sendMessage()">Send</button>
@@ -709,6 +713,11 @@ window.onload = function() {
 };
 
 </script>
-
+<div style="position: fixed; bottom: 0; /* ...styles... */">
+    <p style="/* ...styles... */">
+        Disclaimer: NaamGuru is a fun chatbot tool that uses a **predefined database** for entertainment purposes. Use for entertainment only.
+    </p>
+</div>
 </body>
 </html>
+
