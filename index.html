@@ -11,30 +11,27 @@
 <style>
     body {
         margin: 0;
-        /* FIX 1: RESTORING THE CENTERING */
+        /* FIX 1: Body Centering and Full Height */
         display: flex;
-        justify-content: center;
-        align-items: center; 
-        min-height: 100vh; /* Ensures vertical centering on all screens */
+        justify-content: center; /* Horizontally center the content */
+        align-items: center;     /* Vertically center the content */
+        min-height: 100vh;       /* Ensures full screen height */
         font-family: "Poppins", sans-serif;
         transition: background 0.6s ease, color 0.6s ease;
         position: relative;
     }
 
     .main-container {
-        /* FIX 2: RESTORING COMPACT WIDTH */
+        /* FIX 2: Limit Width of the Main App Container */
         z-index: 10; 
         width: 100%;
-        max-width: 450px; /* Limits the chat box width */
+        max-width: 450px; /* The compact width you wanted */
         display: flex;
         justify-content: center;
         align-items: center; 
-        padding-top: 20px; /* Small padding top/bottom */
-        padding-bottom: 20px;
+        padding: 20px 0; /* Vertical padding */
     }
     
-    /* The rest of the CSS is the original, beautiful code */
-
     .app {
         width: 100%;
         background: rgba(255,255,255,0.15);
@@ -46,7 +43,7 @@
         min-height: 600px;
     }
 
-    /* CSS for Fixed Side Ad Slots (Restored to original design) */
+    /* CSS for Fixed Side Ad Slots */
     .ad-sidebar {
         width: 180px; 
         background: rgba(255,255,255,0.1);
@@ -61,27 +58,20 @@
         transition: 0.6s ease;
     }
 
-    #ad-left {
-        left: 20px; 
-    }
-
-    #ad-right {
-        right: 20px; 
-    }
+    #ad-left { left: 20px; }
+    #ad-right { right: 20px; }
 
     /* Media query to display sidebars on wider screens */
     @media (min-width: 1200px) {
-        .ad-sidebar {
-            display: block;
-        }
+        .ad-sidebar { display: block; }
     }
     
-    /* New Style for Disclaimer (to place it outside the main centered area) */
+    /* Style for Disclaimer (positioned relative to body) */
     .footer-disclaimer {
         position: absolute;
         bottom: 10px; 
         width: 100%;
-        max-width: 450px; /* Centered with the app, if possible */
+        max-width: 450px; 
         text-align: center;
         font-size: 11px;
         color: #555;
