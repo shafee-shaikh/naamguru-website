@@ -193,6 +193,7 @@
             <option>🌊 Ocean Blue</option>
             <option>⚪ Minimalist White</option>
             <option>📜 Vintage Sepia</option>
+            <option>🌀 Naruto Team 7</option>
         </select>
 
        <div id="chat">
@@ -652,19 +653,40 @@ const themes = {
         botBubble: "#fcf6e7", 
         meText: "#fff",
         botText: "#5d4037" 
+    },
+     "🌀 Naruto Team 7": {
+    bg: "url('https://i.postimg.cc/Kj61mj15/images-4.jpg')", 
+    meBubble: "#ff9400", 
+    botBubble: "rgba(0, 0, 0, 0.8)", 
+    meText: "#fff",
+    botText: "#ffea00" 
     }
 };
-
 function applyTheme(themeName) {
     let t = themes[themeName];
-    // This is the correct logic for handling gradients vs. solid colors
-    if (t.bg.startsWith("linear-gradient")) {
+    
+    // Background Reset (Taaki purani theme ki image ya color hat jaye)
+    document.body.style.backgroundImage = 'none';
+    document.body.style.backgroundColor = 'transparent';
+
+    if (t.bg.startsWith("url")) {
+        // IMAGE THEME LOGIC (Naruto jaisi photos ke liye)
         document.body.style.backgroundImage = t.bg;
-        document.body.style.backgroundColor = 'transparent'; 
-    } else {
-        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundSize = "cover";       
+        document.body.style.backgroundPosition = "center";  
+        document.body.style.backgroundAttachment = "fixed"; 
+        document.body.style.backgroundRepeat = "no-repeat";
+    } 
+    else if (t.bg.startsWith("linear-gradient")) {
+        // GRADIENT THEME LOGIC (Rainbow/Ocean jaisi themes ke liye)
+        document.body.style.backgroundImage = t.bg;
+    } 
+    else {
+        // SOLID COLOR LOGIC (Sky Blue/Gold jaisi themes ke liye)
         document.body.style.backgroundColor = t.bg;
     }
+
+    // CSS Variables update karna (Bubble colors aur text colors)
     document.documentElement.style.setProperty("--me-bubble", t.meBubble);
     document.documentElement.style.setProperty("--bot-bubble", t.botBubble);
     document.documentElement.style.setProperty("--me-text", t.meText);
@@ -742,6 +764,7 @@ window.onload = function() {
 </div>
 </body>
 </html>
+
 
 
 
