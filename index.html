@@ -193,7 +193,9 @@
             <option>🌊 Ocean Blue</option>
             <option>⚪ Minimalist White</option>
             <option>📜 Vintage Sepia</option>
-            <option>🔴 Sharingan</option>
+            <option>🟣 Neon Galaxy</option>
+            <option>🔥 Dragon Flame</option>
+            <option>🌿 Emerald Forest</option
         </select>
 
        <div id="chat">
@@ -654,29 +656,51 @@ const themes = {
         meText: "#fff",
         botText: "#5d4037" 
     },
-     "🔴 Sharingan": {
-    bg: "url('https://img.sanishtech.com/u/ad4d53342a12ba0f06452d09c8612798.jpg')", 
-    meBubble: "#b30000", 
-    botBubble: "rgba(20, 20, 20, 0.9)",
+     "🟣 Neon Galaxy": {
+    bg: "linear-gradient(135deg, #2b1055, #7597de)",
+    meBubble: "#7597de",
+    botBubble: "#1c0522",
     meText: "#fff",
-    botText: "#ff4d4d"
-    }
+    botText: "#d1d1ff"
+},
+"🔥 Dragon Flame": {
+    bg: "linear-gradient(135deg, #800000, #ff4500)",
+    meBubble: "#ff4500",
+    botBubble: "#300000",
+    meText: "#fff",
+    botText: "#ffd700"
+},
+"🌿 Emerald Forest": {
+    bg: "linear-gradient(135deg, #004d40, #00c853)",
+    meBubble: "#00c853",
+    botBubble: "#002b24",
+    meText: "#fff",
+    botText: "#e0f2f1"
+}
 };
 function applyTheme(themeName) {
+function applyTheme(themeName) {
     let t = themes[themeName];
-    
-    // Background Reset (Taaki purani theme ki image ya color hat jaye)
-    document.body.style.backgroundImage = 'none';
-    document.body.style.backgroundColor = 'transparent';
+    if (!t) return;
 
-    if (t.bg.startsWith("url")) {
-        // IMAGE THEME LOGIC (Naruto jaisi photos ke liye)
+    // Reset background defaults
+    document.body.style.backgroundColor = 'transparent';
+    document.body.style.backgroundImage = 'none';
+
+    // Check if it's a gradient or solid color
+    if (t.bg.startsWith("linear-gradient")) {
         document.body.style.backgroundImage = t.bg;
-        document.body.style.backgroundSize = "cover";       
-        document.body.style.backgroundPosition = "center";  
-        document.body.style.backgroundAttachment = "fixed"; 
-        document.body.style.backgroundRepeat = "no-repeat";
-    } 
+    } else {
+        document.body.style.backgroundColor = t.bg;
+    }
+
+    // CSS Variables Update
+    document.documentElement.style.setProperty("--me-bubble", t.meBubble);
+    document.documentElement.style.setProperty("--bot-bubble", t.botBubble);
+    document.documentElement.style.setProperty("--me-text", t.meText);
+    document.documentElement.style.setProperty("--bot-text", t.botText);
+}
+
     else if (t.bg.startsWith("linear-gradient")) {
         // GRADIENT THEME LOGIC (Rainbow/Ocean jaisi themes ke liye)
         document.body.style.backgroundImage = t.bg;
@@ -764,6 +788,7 @@ window.onload = function() {
 </div>
 </body>
 </html>
+
 
 
 
